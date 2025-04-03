@@ -13,6 +13,7 @@ class BasePage:
         self.login_button = "a[href='/login']"
 
 
+
     def click(self, locator, timeout=10):
         WebDriverWait(self.driver, timeout).until(EC.element_to_be_clickable(locator)).click()
 

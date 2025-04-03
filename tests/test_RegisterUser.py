@@ -45,6 +45,7 @@ def test_signup_login(shared_browser_instance):
     # Usa la homepage già caricata e naviga verso "Signup/Login"
     basepage.signup_login()
     print("Navigato alla pagina di Signup/Login.")
+    #Verifica che signup è visibile
     SigLog = SignLogPage(shared_browser_instance)
     SigLog.newUserSignup_visibility()
     if SigLog.usersignup_visibility:
@@ -53,6 +54,15 @@ def test_signup_login(shared_browser_instance):
     else:
         assert False
     print("Signup/Login caricata correttamente.")
+    SigLog.enterName_email("Kevin", "kevin@live.it")
+    SigLog.signup_button()
+    print("Signup/Login completato.")
+    #Verifica visibilità
+    if SigLog.accountinfo_visibility():
+        assert True
+        print("Enter account infrmation visibile")
+    else:
+        assert False
 
 
 

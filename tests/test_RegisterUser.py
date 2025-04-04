@@ -1,3 +1,5 @@
+import random
+import string
 import time
 import pytest
 from selenium import webdriver
@@ -8,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-# Fixture per il browser con scope "module" per condividere tra piu' test
+# Fixture per il browser con scope "module" per condividere tra piu' test così che non ricomincia da capo ogni volta ma riprende da dove ha interrotto altro test
 @pytest.fixture(scope="module")
 def shared_browser_instance(browserInstance):
     # Mantieni il browser aperto tra più test
@@ -37,7 +39,7 @@ def test_open_homepage(shared_browser_instance):
     print("Homepage caricata correttamente.")
     # Lascio il browser navigato pronto per gli altri test
 
-#4-6
+#4-8
 @pytest.mark.smoke
 def test_signup_login(shared_browser_instance):
     # Usa lo stesso browser dalla fixture condivisa
@@ -54,7 +56,8 @@ def test_signup_login(shared_browser_instance):
     else:
         assert False
     print("Signup/Login caricata correttamente.")
-    SigLog.enterName_email("Kevin", "kevin@live.it")
+    random_email = ''.join(random.choices(string.ascii_lowercase + string.digits, k=8)) + "@example.com"
+    SigLog.enterName_email("Kevin", random_email)
     SigLog.signup_button()
     print("Signup/Login completato.")
     #Verifica visibilità
@@ -64,5 +67,18 @@ def test_signup_login(shared_browser_instance):
     else:
         assert False
 
+#9-
+@pytest.mark.smoke
+def test_fillDet(shared_browser_instance):
+    SigLog = SignLogPage(shared_browser_instance)
+    SigLog.fill_details("kevin", "kevin@gmail.com", "secretpassword", 1,
+                        "September", 1997, "Kevin", "Ramo", "Via Roma", "Italy", "Milan", "1000", "3000000000" )
+    time.sleep(3)
+    #Verifico funzionamento
+    if SigLog.account_created_vis():
+        assert True
+        print("Account created!")
+    else:
+        assert False
 
 

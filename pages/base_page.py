@@ -33,3 +33,25 @@ class BasePage:
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, self.login_button))
         ).click()
+
+    #Invece di scrivere 100 volte webdriverwait mi creo un helper
+    def wait_and_fill(self, by_type, selector, value):
+        """
+        Attende che un elemento sia cliccabile e inserisce il valore fornito tramite send_keys.
+
+        :param by_type: Tipo del selettore (esempio: By.ID, By.CSS_SELECTOR).
+        :param selector: Identificatore del campo (esempio: "email").
+        :param value: Testo da inviare nel campo.
+        """
+        element = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((by_type, selector))  # Aspetta che il campo sia cliccabile
+        )
+        element.clear()  # Pulisce il campo (opzionale, se vuoi sovrascrivere il valore precedente)
+        element.send_keys(value)  # Inserisce il testo nel campo
+
+    #per attendere e poi cliccare
+    def wait_and_click(self, by_type, selector, timeout=10):
+        element = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((by_type, selector))  # Aspetta che il campo sia cliccabile
+        )
+        element.click()  # clicca

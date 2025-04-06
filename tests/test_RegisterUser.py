@@ -67,7 +67,7 @@ def test_signup_login(shared_browser_instance):
     else:
         assert False
 
-#9-
+#9-18
 @pytest.mark.smoke
 def test_fillDet(shared_browser_instance):
     SigLog = SignLogPage(shared_browser_instance)
@@ -80,5 +80,9 @@ def test_fillDet(shared_browser_instance):
         print("Account created!")
     else:
         assert False
+    #15-18
+    SigLog.account_finalize()
 
-
+# 15. Click 'Continue' button
+# 16. Verify that 'Logged in as username' is visible
+# 17. Click 'Delete Account' button

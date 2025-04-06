@@ -27,6 +27,7 @@ class SignLogPage:
             "year": "years"
         }
         self.Checkbox_newsletter = "newsletter"
+        self.Account_continue = "a[data-qa='continue-button']"
 
         self.address = {
             "first_name" : "first_name",
@@ -107,4 +108,9 @@ class SignLogPage:
     def account_created_vis(self):
         avisibility = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.CSS_SELECTOR, self.accountCreatedVis)))
         return avisibility
+
+    def account_finalize(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, self.Account_continue))).click()
+
 

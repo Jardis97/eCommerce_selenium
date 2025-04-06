@@ -46,6 +46,11 @@ class SignLogPage:
         self.account_logged = "//a[contains(., 'Logged in as')]"
         self.delete = "//a[contains(., 'Delete Account')]"
 
+        #Test3-login
+        self.email_field = "input[data-qa='login-email']"
+        self.password_field = "input[data-qa='login-password']"
+        self.login_button = "button[data-qa='login-button']"
+
     #funzione per verificare che ci sia la scritta visibile
     def newUserSignup_visibility(self):
         WebDriverWait(self.driver, 10).until(
@@ -125,5 +130,15 @@ class SignLogPage:
         #Delete account
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.delete))).click()
+
+
+    def fail_login(self, email_value, password_value):
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, self.email_field))).send_keys(email_value)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, self.password_field))).send_keys(password_value)
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, self.login_button))).click()
+
 
 

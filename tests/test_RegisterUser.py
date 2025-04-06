@@ -81,8 +81,10 @@ def test_fillDet(shared_browser_instance):
     else:
         assert False
     #15-18
-    SigLog.account_finalize()
+    result = SigLog.account_finalize()
+    if result:
+        assert True
+    else:
+        assert False
 
-# 15. Click 'Continue' button
-# 16. Verify that 'Logged in as username' is visible
-# 17. Click 'Delete Account' button
+    SigLog.delete_account()

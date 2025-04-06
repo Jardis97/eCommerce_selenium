@@ -42,6 +42,10 @@ class SignLogPage:
         self.createButton = "button[data-qa='create-account']"
         self.accountCreatedVis = "h2[data-qa='account-created']"
 
+        #Verifica account creato e delete button
+        self.account_logged = "//a[contains(., 'Logged in as')]"
+        self.delete = "//a[contains(., 'Delete Account')]"
+
     #funzione per verificare che ci sia la scritta visibile
     def newUserSignup_visibility(self):
         WebDriverWait(self.driver, 10).until(
@@ -112,5 +116,14 @@ class SignLogPage:
     def account_finalize(self):
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, self.Account_continue))).click()
+        #verifica sia visibile account creato
+        username_visibility = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, self.account_logged)))
+        return username_visibility
+
+    def delete_account(self):
+        #Delete account
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.delete))).click()
 
 

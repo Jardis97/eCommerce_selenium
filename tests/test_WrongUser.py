@@ -53,6 +53,12 @@ def test_login_fail(shared_browser_instance):
     SigLog = SignLogPage(shared_browser_instance)
     SigLog.signup_button()
     SigLog.fail_login("a@live.it","aaa")
+    SigLog.incorrect_visibility()
+    if SigLog.incorrect_visibility():
+        assert True
+        print("Incorrect credentials visible")
+    else:
+        assert False
 
 
 

@@ -50,6 +50,7 @@ class SignLogPage:
         self.email_field = "input[data-qa='login-email']"
         self.password_field = "input[data-qa='login-password']"
         self.login_button = "button[data-qa='login-button']"
+        self.incorrect_visibilitypath = "//p[text()='Your email or password is incorrect!']"
 
     #funzione per verificare che ci sia la scritta visibile
     def newUserSignup_visibility(self):
@@ -139,6 +140,12 @@ class SignLogPage:
             EC.element_to_be_clickable((By.CSS_SELECTOR, self.password_field))).send_keys(password_value)
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, self.login_button))).click()
+
+
+    def incorrect_visibility(self):
+        incorrectVisibility = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, self.incorrect_visibilitypath)))
+        return incorrectVisibility
+
 
 
 
